@@ -1,0 +1,254 @@
+/* icon  */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+
+/* font */
+@import url("https://fonts.googleapis.com/css2?family=Itim&family=Mali&display=swap&family=Prompt&display=swap");
+body {
+  font-family: "Prompt";
+}
+
+/* color */
+#backgroud_nav {
+  background-color: #9addf2;
+  color: #000;
+}
+#backgroud_nav:a {
+  background-color: #9addf2;
+  color: #000;
+}
+.text_nav{
+  font-size: 17px;
+  color:#000;
+  text-decoration: none;
+}
+
+.imgNav{
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.navactive{
+  color: rgb(1, 55, 142);
+}
+
+a.navhover:hover, span.navhover:hover{
+  color: rgb(1, 55, 142);
+}
+
+
+/* color ปุ่มGet start */
+.button_start {
+  background-color: #9addf2;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 3px 3px #888888;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.iconfooter {
+  font-size: 1.5rem;
+}
+
+.button {
+  border-radius: 10px;
+}
+/* input bg หน้าall course */
+.bg_course {
+  background-color: #d6f0f9;
+}
+
+/* ทำให้รูปในcard ขอบมน */
+.card-round {
+  border-radius: 10px;
+}
+
+/* .form-inline {
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle;
+} */
+
+/* รูปหัวข้อหน้าpreview */
+.hero-image {
+  /* background-image: url('sql.png'); */
+  background-image: url(../uploads/sql.png);
+  height: 400px;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+  position: relative;
+}
+
+/* ไม่เอาเส้นกรอบ */
+.border-trans {
+  border-color: transparent;
+}
+
+/* พื้นหลังcard หน้า preview */
+.gray {
+  background-color: #fafafa;
+}
+/* เอาเส้นใต้ออก */
+.no-line {
+  text-decoration: none;
+}
+.line {
+  text-decoration: solid;
+}
+.iconcart {
+  font-size: 1.3rem;
+}
+
+/* allcourse */
+.form-inline {
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+a.myAnimNav:hover {
+  animation: myAnim 1s ease 0s 1 normal forwards;
+}
+
+a.myAnim:hover {
+  animation: myAnim 1s ease 0s 1 normal forwards;
+  box-shadow: 0 0 15px gray;
+}
+
+a.myAnim2:hover {
+  animation: myAnim 1s ease 0s 1 normal forwards;
+  color: rgb(0, 9, 137);
+}
+
+div.myAnim1:hover {
+  animation: myAnim 1s ease 0s 1 normal forwards;
+  /* box-shadow: 0 0 15px gray; */
+}
+
+@keyframes myAnim {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.footer1 {
+  /* display:block; */
+  position: relative;
+  bottom: 0;
+  /* margin-bottom: 0px; */
+  width: 100%;
+  left: 0;
+  margin-top: 50px;
+}
+
+.nocourse {
+  height: 22vh;
+  width: 100%;
+  margin-bottom: 15em;
+  margin-top: 2em;
+}
+
+.nocourse2 {
+  height: 40%;
+  width: 100%;
+  margin-bottom: 10em;
+}
+.nocourse3{
+  height: 40%;
+  width: 100%;
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+.cropimg{
+  width: 300px;
+  height:500px;
+  object-fit:cover;
+}
+.cardadmin{
+  background-color:#fff;
+
+}
+.cardadmin:hover {
+  background-color: #eeecec;
+  color: rgb(0, 0, 0);
+}
+/* .modalcolor{
+  background-color: rgb(250, 250, 250);
+} */
+.nav_hover{
+  /* background-color:#fff; */
+  color:#000;
+}
+.nav_hover:active{
+  color: #eeecec;
+  /* color: rgb(0, 0, 0); */
+}
+.mycourse_img {
+  width: 319px;
+  height: 319px;
+  object-fit: cover;
+}
+
+.my_img{
+  object-fit: cover;
+  height: 180px;
+}
+
+.my_card{
+  object-fit: cover;
+  height: 360px;
+}
+
+.footer {
+  /* background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("http://andreeabunget.co.uk/Img/footer.jpg"); */
+  background-size: cover;
+}
+
+.line1 {
+  height: 2px;
+  background-color: rgb(206, 206, 206);
+  width: 290px;
+  /* margin-left: 3em; */
+}
+
+.line2 {
+  height: 2px;
+  background-color: rgb(206, 206, 206);
+  width: 100px;
+  margin-left: 10em;
+}
+
+.section-index{
+  width: 100%;
+  height: 40vh;
+  /* border: 1px solid black; */
+  margin-top:50px;
+}
+
+.topic{
+  box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+.space{
+  width: 100%;
+  height: 10vh;
+}

@@ -1,0 +1,121 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VSB</title>
+  <link rel="icon" href="/uploads/logo.png" />
+  <link href="/css/bootstrap.css" rel="stylesheet" />
+  <link href="/css/css.css" rel="stylesheet" />
+  <script src="/js/bootstrap.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+  <div class="" id="app">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light p-0" id="backgroud_nav">
+
+        <div class="container-fluid" v-for="user in users">
+
+          <a class="navbar-brand" :href="'/admin/'+user.admin_id+'/checkpayment'">
+            <img src="/uploads/logo.png" alt="" width="45" height="45" />
+          </a>
+
+          <div class="d-flex">
+            <a class="navbar-brand my-auto ms-auto myAnimNav" :href="'/admin/'+user.admin_id+'/checkpayment'">
+              <span class="navhover">Check Payment</span>
+            </a>
+            <a class="navbar-brand my-auto ms-auto myAnimNav" :href="'/admin/'+user.admin_id
+                                +'/myteam'">
+                                <span class="navhover">My team</span>
+            </a>
+            <li class="nav dropdown">
+              <a class="nav-link dropdown-toggle my-auto ms-auto text_nav navhover myAnimNav" href="#"
+                    id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span>
+                      <img :src="user.admin_img" alt="" width="45" height="45" class="d-inline-block imgNav" />
+                      {{user.admin_fname}}</span>
+                  </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" :href="'/admin/profile/' +
+                                            user.admin_id + '/'">Profile</a></li>
+                <li><a class="dropdown-item" href="/sign-out/">Logout</a></li>
+              </ul>
+            </li>
+          </div>
+
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <div v-for="user in users" class="mb-5">
+
+
+        <div class="row mt-5">
+          <!-- <h5>My team</h5> -->
+        </div>
+        <div class="row px-4">
+          <h4>My Team <i class="bi bi-people-fill"></i></h4>
+          <div class="card text-center mt-2">
+
+            <div class="row justify-content-center">
+              <div class="col-sm-12 col-xl-4 my-3" v-for="admin in admins">
+                <a href="" class="card bg-light m-auto" style="width: 15rem; text-decoration: none; color: black">
+                  <div class="d-flex
+                                            justify-content-center">
+                    <img :src="admin.admin_img" class="card-img-top
+                                                rounded-circle w-50
+                                                pt-2" alt="..." />
+                  </div>
+                  <div class="card-body pb-0">
+
+                    <h5 class="card-title text-center
+                                                text-dark">
+                      {{ admin.admin_fname +' '+
+                                                admin.admin_lname }}
+                    </h5>
+                    <p class="text-muted">admin {{admin.admin_id}} </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="my-5">
+
+      </div>
+      <!-- <hr>
+                <h4>Check Payment</h4> -->
+    </div>
+  </div>
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        data: JSON.parse(`<%- data %>`),
+        users: JSON.parse(`<%- users %>`),
+        admins: JSON.parse(`<%- admin %>`),
+        sorted: "",
+        idCounter: 16,
+      },
+      // created() {
+      //     this.idCounter = this.courses.length
+      //     console.log(this.courses.length)
+      // this.filteredTasks = this.tasks
+      // this.courses = this.courses
+      // `this` points to the vm instance
+      // console.log('a is: ' + this.a)
+      //   },
+
+
+    })
+  </script>
+
+</body>
+
+</html>

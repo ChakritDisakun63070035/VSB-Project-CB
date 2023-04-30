@@ -1,0 +1,514 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VSB</title>
+  <link rel="icon" href="/uploads/logo.png" />
+  <link href="/css/bootstrap.css" rel="stylesheet" />
+  <link href="/css/css.css" rel="stylesheet" />
+  <script src="/js/bootstrap.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <!-- CDN AXIOS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <div class="" id="app">
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light p-0" id="backgroud_nav">
+        <div class="container-fluid" v-for="user in users">
+          <a class="navbar-brand" :href="'/home/' + user.user_id">
+            <img src="/uploads/logo.png" alt="" width="45" height="45" />
+          </a>
+          <div class="d-flex">
+            <a class="navbar-brand my-auto ms-auto myAnimNav" :href="'/allcourse/' + user.user_id">
+                  <span class="text_nav navhover">
+                    All Course
+                  </span>
+                </a>
+            <a class="navactive my-auto ms-auto myAnimNav text_nav navhover" href="">
+              My Course
+            </a>
+            <li class="nav dropdown">
+              <a class="nav-link dropdown-toggle my-auto ms-auto myAnimNav text_nav navhover" href="#" id="navbarScrollingDropdown" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <img :src="user.image" alt="" width="45" height="45" class="d-inline-block imgNav" />
+                {{user.user_fname}}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" :href="'/profile/' + user.user_id + '/'">Profile</a></li>
+                <li><a class="dropdown-item" :href="'/sign-out/' + user.user_id">Logout</a></li>
+              </ul>
+            </li>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container">.
+      <% if (message.length > 0) { %>
+        <div class="w-50 mx-auto alert alert-danger mt-3 text-center alert-dismissible fade show">
+          <i class="bi bi-exclamation-triangle-fill text-danger iconcart"></i>
+          <%= message %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% } %>
+        
+      <div class="row mt-5">
+        <h5>
+          My Course
+          <i class="bi bi-plus-circle-fill text-warning ms-2" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"></i>
+          <small class="text-secondary">Create</small>
+        </h5>
+      </div>
+
+      <div v-if="computedCourses == 0" class="container nocourse card w-25 text-center mt-5">
+        <h4 class="card-body"><i class="bi bi-exclamation-triangle-fill text-warning"></i> No your course</h4>
+      </div>
+
+      <!-- modal form create course -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Create Course</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" v-for="user in users">
+              <form class="needs-validation" novalidate :action="'/teacher/' + user.user_id" method="POST"
+                enctype="multipart/form-data">
+                <div class="file my-3">
+                  <label class="form-label" for="customFile">Course Image</label>
+                  <input type="file" class="form-control" id="customFile" name="course_image" required />
+                  <div class="invalid-feedback"> Please choose your course image. </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">Course Name</label>
+                  <input type="text" class="form-control" name="course_name" value="" required />
+                  <div class="invalid-feedback"> Please enter your course name. </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">Course Information</label>
+                  <input type="text" class="form-control" name="course_info" value="" required></input>
+                  <div class="invalid-feedback"> Please enter your course information. </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">Course Time</label>
+                  <input pattern="[0-9]{1,2}:[0-9]{1,2}:[0-9]{1,2}" type="text" class="form-control" name="course_time"
+                    value="" required />
+                  <div class="invalid-feedback"> Please enter your course time using format hh:mm:ss </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">Course Price</label>
+                  <input type="number" class="form-control" name="course_price" value="" required />
+                  <div class="invalid-feedback"> Please enter your course price. </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">Course Description</label>
+                  <textarea type="text" class="form-control" name="course_des" value="" required></textarea>
+                  <div class="invalid-feedback"> Please enter your course description. </div>
+                </div>
+                <div class="file my-3">
+                  <label class="form-label" for="customFile">Preview Image</label>
+                  <input type="file" class="form-control" id="customFile" name="preview_image" required />
+                  <div class="invalid-feedback"> Please choose your preview image. </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">Preview Video</label>
+                  <input type="url" class="form-control" name="preview_video" value="" required />
+                  <div class="invalid-feedback"> Please enter your preview video. </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">What You'll Learn?</label>
+                  <input type="text" class="form-control" name="preview_learn1" value="" required />
+                  <div class="invalid-feedback"> Please enter your target. </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">What You'll Learn?</label>
+                  <input type="text" class="form-control" name="preview_learn2" value="" required />
+                  <div class="invalid-feedback"> Please enter your target. </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">What You'll Learn?</label>
+                  <input type="text" class="form-control" name="preview_learn3" value="" required />
+                  <div class="invalid-feedback"> Please enter your target. </div>
+                </div>
+                <div class="my-3">
+                  <label class="form-label">What You'll Learn?</label>
+                  <input type="text" class="form-control" name="preview_learn4" value="" required />
+                  <div class="invalid-feedback"> Please enter your target. </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-warning">Create</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row px-4" v-for="user in users">
+        <div class="col-sm-12 col-md-6 col-xl-4 my-3" v-for="course in computedCourses">
+          <div class="card myAnim bg-light" style="width: 20rem">
+            <a :href="'/course/' + course.course_id + '/' + user.user_id" style="text-decoration: none; color:black">
+              <img :src="course.image" class="mycourse_img card-img-top" style="max-height: 30vh" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title text-center text-dark">
+                  <b>
+                    {{ course.course_name }} </b>
+                </h5>
+                <p class="card-text text-center text-dark">
+                  {{ course.course_info }}
+                </p>
+                <div class="row">
+                  <div class="col-6">Courses price</div>
+                  <div class="col"></div>
+                  <div class="col text-danger">
+                    {{ course.course_price }}฿
+                  </div>
+                </div>
+              </div>
+            </a>
+            <div class="card-footer">
+              <div class="text-end">
+                <button @click="content(course)" class="btn btn-info btn-sm" data-bs-toggle="modal"
+                  data-bs-target="#content"><i class="bi bi-body-text"></i> Content</button>
+                <button @click="editcourse(course)" class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                  data-bs-target="#editcourse"><i class="bi bi-pencil-fill"></i> Edit</button>
+                <button @click="editcourse(course)" class="btn btn-danger btn-sm" class="btn btn-danger btn-sm"
+                  data-bs-toggle="modal" data-bs-target="#delcourse"><i class="bi bi-trash-fill"></i>
+                  Delete</button>
+              </div>
+
+              <!-- modal content course -->
+              <div class="modal fade" id="content" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <div class="modal-title mx-auto text-dark">Content of '{{name}}' </div>
+                    </div>
+                    <div class="modal-body">
+
+                      <!-- Show Content -->
+                      <div v-for="(videos,index) in video">
+                        <div v-if="videos.course_id == course_id" class="position-relative">
+                          {{videos.path}}
+                          <div v-if="index == index_check">
+                            <span><div class="mt-2 mb-2 text-center text-decoration-underline">Change To</div>
+                              <input v-model="editContentMessage" type="text" class="form-control"></span>
+                              <div class="my-2 text-center">
+                              <button type="button" class="btn btn-outline-success" @click="editContent(videos.video_id, index)">Save</button>
+                              <button type="button" class="btn btn-outline-danger" @click="index_check = '', editContentMessage = ''">Cancle</button>
+                             </div>
+                            </div>
+
+                          <div class="position-absolute bottom-0 end-0 fs-4" v-if="index != index_check">
+                            <span><a @click="editcontent_bnt2(videos.video_id, index), content_bnt = 1"><i class="bi bi-pencil-fill text-warning"></i></a></span>
+                            <span><a @click="deleteContent(videos.video_id, index)"><i class="bi bi-trash-fill text-danger"></i></a></span>
+                          </div>
+                          <hr>
+                        </div>
+                      </div>
+
+                      <!-- Show Content -->
+                      <!-- <div v-for="(videos,index) in video">
+                        <div v-if="videos.course_id == course_id" class="position-relative">
+                          {{videos.path}}
+                          <div class="position-absolute bottom-0 end-0 fs-4">
+                            <span><a @click="deleteContent(videos.video_id, index)"><i class="bi bi-trash-fill text-danger"></i></a></span>
+                          </div>
+                          <hr>
+                        </div>
+                      </div> -->
+
+                      <div class="text-center" v-if="content_bnt === 1">
+                        <button @click="content_bnt = 0,index_check = '', editContentMessage = ''" class="btn btn-light mt-1">ADD Content</button>
+                      </div>
+                      <div class="text-center" v-if="content_bnt === 0">
+                        <div class="mt-1 row bg-light" style="border-radius: 10px;">
+                          <p>Content</p>
+                          <input v-model="contTxt" type="text" class="form-control">
+                        </div>
+                        <button @click="addContent(users[0].user_id)"
+                          class="btn btn-success mt-4 submit">SUBMIT</button>
+                        <button class="btn btn-danger mt-4" @click="content_bnt = 1, contTxt = '',index_check = '', editContentMessage = ''">CANCLE</button>
+                      </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                      <div class="my-1 mx-1 text-end">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                          @click="content_bnt=1, contTxt=''">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- modal edit course -->
+              <div class="modal fade" id="editcourse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Edit Course '{{name}}' </h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form class="" :action="'/teacher/' + user.user_id + '/' + course_id + '/' + preview_id"
+                        method="POST" enctype="multipart/form-data">
+                        <div class="file my-3">
+                          <label class="form-label" for="customFile">Course Image</label>
+                          <input type="file" class="form-control" id="customFile" name="course_image" />
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">Course Name</label>
+                          <input type="text" class="form-control" name="course_name" value="" required />
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">Course Information</label>
+                          <input type="text" class="form-control" name="course_info" value="" required></input>
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">Course Time</label>
+                          <input type="text" class="form-control" name="course_time" value="" required />
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">Course Price</label>
+                          <input type="text" class="form-control" name="course_price" value="" required />
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">Course Description</label>
+                          <textarea type="text" class="form-control" name="course_des" value="" required></textarea>
+                        </div>
+                        <div class="file my-3">
+                          <label class="form-label" for="customFile">Preview Image</label>
+                          <input type="file" class="form-control" id="customFile" name="preview_image" />
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">Preview Video</label>
+                          <input type="url" class="form-control" name="preview_video" value="" required />
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">What You'll Learn?</label>
+                          <input type="text" class="form-control" name="preview_learn1" value="" required />
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">What You'll Learn?</label>
+                          <input type="text" class="form-control" name="preview_learn2" value="" required />
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">What You'll Learn?</label>
+                          <input type="text" class="form-control" name="preview_learn3" value="" required />
+                        </div>
+                        <div class="my-3">
+                          <label class="form-label">What You'll Learn?</label>
+                          <input type="text" class="form-control" name="preview_learn4" value="" required />
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-warning">Edit</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- modal del course -->
+              <div class="modal fade" id="delcourse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <div class="modal-title mx-auto text-danger">Are you sure you want to delete '{{name}}' ?
+                      </div>
+                    </div>
+                    <div class="my-2 mx-2 text-end">
+                      <a :href="'/teacher/' + user.user_id + '/delcourse/' + course_id + '/' + preview_id" class="btn btn-danger">Delete</a>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: "#app",
+      data: {
+        courses: JSON.parse(`<%- courses %>`),
+        users: JSON.parse(`<%- users %>`),
+        video: JSON.parse(`<%- video %>`),
+        sorted: "",
+        idCounter: 16,
+        course_id: "",
+        name: "",
+        preview_id: "",
+        contTxt: "",
+        content_bnt: 1,
+        countCont: 1,
+        index_check: '',
+        // editcontent_bnt: 1,
+        editContentMessage: "",
+        // video_id: "",
+      },
+      methods: {
+        editcourse(course) {
+          const courseId = course.course_id
+          const previewId = course.preview_id
+          const name = course.course_name
+          this.course_id = courseId
+          this.name = name
+          this.preview_id = previewId
+        },
+        content(course) {
+          const courseId = course.course_id
+          const previewId = course.preview_id
+          const name = course.course_name
+          this.course_id = courseId
+          this.name = name
+          this.preview_id = previewId
+        },
+        addContent(userID) {
+          if (this.contTxt == "") {
+            window.alert("Please fill content")
+          } else {
+            axios
+              .post(`http://localhost:3000/teacher/${userID}/addcontent`, {
+                path: this.contTxt,
+                course_id: this.course_id
+              })
+              .then((response) => {
+                this.contTxt = ''
+                this.video.push(response.data);
+                this.content_bnt = 1
+              })
+              .catch((error) => {
+                this.error = error.response.data.message;
+              });
+          }
+        },
+        deleteContent(videoID, index) {
+        const result = confirm(`Are you sure you want to delete`);
+        if (result) {
+          axios
+            .delete(`http://localhost:3000/teacher/${videoID}/deletecontent/${index}`)
+            .then((response) => {
+              this.video.splice(index, 1);
+            })
+            .catch((error) => {
+              this.error = error.message;
+            });
+        }
+      },editcontent_bnt2(videoId, index){
+        this.index_check = index
+      },
+      editContent(videoID, index) {
+        if(this.editContentMessage == ''){
+          window.alert("Please fill content")
+          this.index_check = index
+        }else{
+          axios
+        .put(`http://localhost:3000/teacher/${videoID}/editcontent/${index}`, {
+          path: this.editContentMessage,
+        })
+        .then((response) => {
+          this.video[index].path = response.data.path;
+          this.editContentMessage = ''
+          this.index_check = ''
+        })
+        .catch((error) => {
+          this.error = error.message;
+        });
+        }
+    },
+      },
+        computed: {
+          computedCourses() {
+            let results = this.courses
+            return results.map((b) => {
+              if (b.course_info.length > 30) {
+                b.course_info = b.course_info.substring(0, 30) + "..."
+              }
+              return b
+            })
+          },
+          filteredTasks() {
+            function compareAlpha(a, b) {
+              if (a.course_name < b.course_name) {
+                return -1
+              } else if (a.course_name > b.course_name) {
+                return 1
+              } else {
+                return 0
+              }
+            }
+
+            function compareID(a, b) {
+              if (a.course_id < b.course_id) {
+                return -1
+              } else if (a.course_id > b.course_id) {
+                return 1
+              } else {
+                return 0
+              }
+            }
+
+            function comparePrice(a, b) {
+              if (a.course_price < b.course_price) {
+                return -1
+              } else if (a.course_price > b.course_price) {
+                return 1
+              } else {
+                return 0
+              }
+            }
+            if (this.sorted == "alpha") {
+              return this.courses.sort(compareAlpha)
+            } else if (this.sorted == "sortID") {
+              return this.courses.sort(compareID)
+            } else if (this.sorted == "price") {
+              return this.courses.sort(comparePrice)
+            }
+          },
+        },
+    })
+
+  </script>
+  <script>
+      (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+          .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+
+              form.classList.add('was-validated')
+            }, false)
+          })
+      })()
+  </script>
+</body>
+
+</html>

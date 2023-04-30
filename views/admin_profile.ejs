@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="icon" href="/uploads/logo.png" />
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+    <link href="/css/css.css" rel="stylesheet" />
+    <script src="/js/bootstrap.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    <div class="" id="app">
+      <div v-for="user in users">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light p-0"
+                id="backgroud_nav">
+
+                <div class="container-fluid" v-for="user in users">
+
+                    <a class="navbar-brand" :href="'/admin/'+user.admin_id+'/checkpayment'">
+                        <img src="/uploads/logo.png" alt="" width="45"
+                            height="45" />
+                    </a>
+
+                    <div class="d-flex">                           
+                        <a class="navbar-brand my-auto ms-auto myAnimNav" :href="'/admin/'+user.admin_id+'/checkpayment'">                                
+                          <span class="navhover">Check Payment</span>
+                        </a>
+                        <a class="navbar-brand my-auto ms-auto myAnimNav" :href="'/admin/'+user.admin_id +'/myteam'">                                
+                          <span class="navhover">My team</span>
+                    </a>
+                        <li class="nav dropdown">
+                          <a class="nav-link dropdown-toggle my-auto ms-auto text_nav navhover myAnimNav" href="#"
+                          id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <span>
+                            <img :src="user.admin_img" alt="" width="45" height="45" class="d-inline-block imgNav" />
+                            {{user.admin_fname}}</span>
+                        </a>
+                            <ul class="dropdown-menu"
+                                aria-labelledby="navbarScrollingDropdown">
+                                <li><a class="dropdown-item"
+                                        :href="'/admin/profile/' +
+                                        user.admin_id + '/'">Profile</a></li>
+                                <li><a class="dropdown-item"
+                                  href="/sign-out/">Logout</a></li>
+                            </ul>
+                        </li>
+                    </div>
+
+                </div>
+            </nav>
+        </header>
+      </div>
+      <div class="container" v-for="user in users">
+        <h2 class="mt-5 text">PROFILE</h2>
+        <div class="text-center mb-2"><img :src="user.admin_img" alt=""
+            width="25%" height="100%" /></div>
+
+        <!-- ปุ่ม modal -->
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"><i class="bi bi-pencil-square"></i>
+            Edit</button>
+        </div>
+
+        <!-- แสดงข้อมูลผู้ใช้จากดาต้าเบส -->
+        <div class="card-body w-75 my-4 mx-auto">
+          <form class="row" v-for="user in users">
+            <div class="col-md-6 col-sm-12 mt-4">
+              <label class="form-label">Firstname</label>
+              <input type="input" class="form-control form-inline ms-3"
+                :value="user.admin_fname" readonly />
+            </div>
+            <div class="col-md-6 col-sm-12 mt-4">
+              <label class="form-label">Lastname</label>
+              <input type="input" class="form-control form-inline ms-3"
+                :value="user.admin_lname" readonly />
+            </div>
+            <div class="col-md-6 col-sm-12 mt-4">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control form-inline ms-5"
+                :value="user.email" readonly />
+            </div>
+            <div class="col-md-6 col-sm-12 mt-4">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control form-inline ms-3"
+                :value="user.admin_pass" readonly />
+            </div>
+            <div class="col-md-6 col-sm-12 mt-4">
+              <label class="form-label">Date of Birth</label>
+              <input type="text" class="form-control form-inline ms-2"
+                :value="user.date" readonly />
+            </div>
+            <div class="col-md-6 col-sm-12 mt-4">
+              <div>
+                <label class="form-label">Gender</label>
+                <input type="text" class="form-control form-inline ms-4"
+                  :value="user.admin_gender" readonly />
+              </div>
+              <!-- <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option disabled value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select> -->
+            </div>
+          </form>
+        </div>
+        <br />
+        <!-- ปุ่ม log out -->
+        <div class="text-center mt-4" v-for="user in users">
+          <a v-if="user.role == 'student' || user.role == 'teacher'" class="btn btn-danger" aria-pressed="true" :href="'/sign-out/' + user.user_id"><i class="bi bi-box-arrow-right"></i> Log Out</a>
+          <a class="btn btn-danger" aria-pressed="true" href="/sign-out/"><i class="bi bi-box-arrow-right"></i> Log Out</a>
+        </div>
+        <br /><br />
+
+        <!-- modal แก้ไขข้อมูลผู้ใช้-->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+          data-bs-keyboard="false" tabindex="-1"
+          aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+              </div>
+              <div class="modal-body" v-for="user in users">
+                <form class="needs-validation" novalidate :action="'/admin/profile/' +
+                  user.admin_id" method="POST" enctype="multipart/form-data">
+                  <div class="file my-2">
+                    <label class="form-label" for="customFile">Profile Image</label>
+                    <input type="file" class="form-control" id="customFile"
+                      name="image" required/>
+                  </div>
+                  <div class="my-2">
+                    <label class="form-label">Firstname</label>
+                    <input pattern="[a-zA-Z]{3,}" type="text"
+                      class="form-control" name="fname" value="" required />
+                    <div class="invalid-feedback mb-3">Please enter your
+                      firstname at least 3 characters.</div>
+                  </div>
+                  <div class="my-2">
+                    <label class="form-label">Lastname</label>
+                    <input pattern="[a-zA-Z]{3,}" type="text"
+                      class="form-control" name="lname" value="" required />
+                    <div class="invalid-feedback mb-3">Please enter your
+                      lastname at least 3 characters.</div>
+                  </div>
+                  <div class="my-2">
+                    <label class="form-label">Email</label>
+                    <input pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                      type="email" class="form-control" name="email" value=""
+                      required />
+                    <div class="invalid-feedback mb-3">Please enter your email</div>
+                  </div>
+                  <div class="my-2">
+                    <label class="form-label">Password</label>
+                    <input pattern="(?=.*\d)(?=.*[a-zA-z]).{8,}" type="password"
+                      class="form-control mb-2" name="password" value=""
+                      required />
+                    <div class="invalid-feedback mb-3">Please enter your
+                      password using a-z, A-Z, 0-9 at least 8 characters.</div>
+                  </div>
+                  <div class="my-2">
+                    <label class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" name="birth" value=""
+                      required />
+                    <div class="invalid-feedback mb-3">Please select your birth</div>
+                  </div>
+                  <div class="my-2">
+                    <div>
+                      <label class="form-label">Gender</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="gender"
+                        value="male" required />
+                      <label class="form-check-label">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="gender"
+                        value="female" required />
+                      <label class="form-check-label">Female</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="gender"
+                        value="other" required />
+                      <label class="form-check-label">Other</label>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-warning">Save</button>
+                    <button type="button" class="btn btn-secondary"
+                      data-bs-dismiss="modal">Close</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          users: JSON.parse(`<%- users %>`),
+        },
+      })
+    </script>
+
+<script>
+  (function() {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>
+  </body>
+</html>
